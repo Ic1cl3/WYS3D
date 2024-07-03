@@ -1,0 +1,67 @@
+[gd_scene load_steps=12 format=3 uid="uid://cn8jjaor0bh67"]
+
+[ext_resource type="Script" path="res://assets/scripts/char.gd" id="1_kyb8t"]
+[ext_resource type="Texture2D" uid="uid://d146wlntuf52g" path="res://assets/art/shellytex.png" id="1_uxru0"]
+[ext_resource type="ArrayMesh" uid="uid://cvlg4tu30hqde" path="res://assets/models/sbody.obj" id="2_k4que"]
+[ext_resource type="Script" path="res://assets/scripts/shell.gd" id="4_62kj3"]
+[ext_resource type="ArrayMesh" uid="uid://baqpr7x1wta58" path="res://assets/models/sshell.obj" id="4_yei4a"]
+[ext_resource type="ArrayMesh" uid="uid://bucdoyw7c0tc8" path="res://assets/models/seyes.obj" id="6_w2k28"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_avjk7"]
+size = Vector3(1.59821, 1.13019, 0.804565)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gclle"]
+albedo_texture = ExtResource("1_uxru0")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jxr5s"]
+albedo_texture = ExtResource("1_uxru0")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4ta6p"]
+albedo_texture = ExtResource("1_uxru0")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eqlv3"]
+albedo_texture = ExtResource("1_uxru0")
+
+[node name="player" type="Node3D"]
+
+[node name="char" type="CharacterBody3D" parent="."]
+script = ExtResource("1_kyb8t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="char"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.119476, 0.519751, -0.00933838)
+shape = SubResource("BoxShape3D_avjk7")
+
+[node name="body" type="MeshInstance3D" parent="char"]
+material_override = SubResource("StandardMaterial3D_gclle")
+mesh = ExtResource("2_k4que")
+skeleton = NodePath("")
+
+[node name="shell" type="MeshInstance3D" parent="char/body"]
+transform = Transform3D(1, 0, 0, 0, 0.7, 0, 0, 0, 1, -0.474, -0.032, 0)
+material_override = SubResource("StandardMaterial3D_jxr5s")
+mesh = ExtResource("4_yei4a")
+skeleton = NodePath("")
+script = ExtResource("4_62kj3")
+
+[node name="leye" type="MeshInstance3D" parent="char/body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.674, 0, 0.15)
+material_override = SubResource("StandardMaterial3D_4ta6p")
+mesh = ExtResource("6_w2k28")
+
+[node name="reye" type="MeshInstance3D" parent="char/body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.674, 0, -0.15)
+material_override = SubResource("StandardMaterial3D_eqlv3")
+mesh = ExtResource("6_w2k28")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="char"]
+transform = Transform3D(-0.078966, 0.651396, -0.754618, -0.0908142, 0.749133, 0.656164, 0.992732, 0.120345, -4.96483e-08, -0.363533, 0.524886, 2.38419e-07)
+spring_length = 4.0
+
+[node name="Camera3D" type="Camera3D" parent="char/SpringArm3D"]
+transform = Transform3D(0.992732, -0.118773, 0.0193881, 0.120345, 0.979764, -0.159934, 2.76918e-08, 0.161105, 0.986937, -0.00149902, 0.0123664, 3.63947)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="char"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.241098, 0.252485, 0)
+light_color = Color(0.121569, 0.376471, 0.839216, 1)
+light_energy = 7.0
+omni_range = 3.0
