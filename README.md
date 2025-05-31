@@ -6,6 +6,7 @@ Currently completed:
 - Character controller
 - Shelly's shell and eye physics
 - Basic grid map
+
 Not completed:
 - Double jump
 - Squid
